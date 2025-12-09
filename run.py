@@ -96,13 +96,17 @@ def get_pred_from_contour(contour, thresh):
 	x1, y1, w1, h1 = cv2.boundingRect(contour)
 	save_img = thresh[y1:y1+h1, x1:x1+w1]
 	
-	text = ""
 	if w1 > h1:
 		save_img = cv2.copyMakeBorder(save_img, int((w1-h1)/2), int((w1-h1)/2), 0, 0, cv2.BORDER_CONSTANT, (0, 0, 0))
 	elif h1 > w1:
 		save_img = cv2.copyMakeBorder(save_img, 0, 0, int((h1-w1)/2), int((h1-w1)/2), cv2.BORDER_CONSTANT, (0, 0, 0))
 	
 	pred_probab, pred_class = keras_predict(model, save_img)
+	
+	# Ambil nama gesture dari database
+	text = get_pred_text_from_db(pred_class)
+	if text is None:
+		text = ""
 	
 	return text, pred_probab
 
