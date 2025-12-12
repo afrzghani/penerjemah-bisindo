@@ -103,7 +103,6 @@ def get_pred_from_contour(contour, thresh):
 	
 	pred_probab, pred_class = keras_predict(model, save_img)
 	
-	# Ambil nama gesture dari database
 	text = get_pred_text_from_db(pred_class)
 	if text is None:
 		text = ""
@@ -206,13 +205,7 @@ def create_modern_ui(img, thresh, pred_text="", word="", confidence=0, status="R
 	if len(display_word) > 20:
 		display_word = display_word[:20] + "..."
 	cv2.putText(canvas, display_word, (730, results_y + 280), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-	
-	cv2.rectangle(canvas, (0, canvas_height - 60), (canvas_width, canvas_height), (40, 40, 40), -1)
-	cv2.putText(canvas, status, (30, canvas_height - 25), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 1)
-	
-	controls_text = "[Q] Keluar  |  [R] Reset  |  [Spasi] Tambah Spasi"
-	cv2.putText(canvas, controls_text, (canvas_width - 520, canvas_height - 25), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (150, 150, 150), 1)
-	
+
 	return canvas
 
 def gesture_recognition_mode(cam):

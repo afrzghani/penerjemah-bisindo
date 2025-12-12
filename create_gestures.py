@@ -99,13 +99,6 @@ def store_images(g_id):
     flag_start_capturing = False
     frames = 0
     
-    print("\n=================")
-    print("1. Posisikan tangan di dalam kotak hijau")
-    print("2. Tekan 'C' untuk mulai/berhenti capture")
-    print("3. Tahan gesture sampai 200 gambar tercapture")
-    print("4. Tekan 'Q' untuk keluar")
-    print("=================\n")
-    
     while True:
         ret, img = cam.read()
         if not ret:
@@ -142,11 +135,11 @@ def store_images(g_id):
         counter_color = (0, 255, 0) if flag_start_capturing else (127, 127, 255)
         cv2.putText(img, f"{pic_no}/{total_pics}", (30, 400), cv2.FONT_HERSHEY_TRIPLEX, 1.5, counter_color, 2)
 
-        status = "CAPTURING" if flag_start_capturing else "READY (Press C)"
+        status = "CAPTURING" if flag_start_capturing else "READY (Tekan C)"
         status_color = (0, 255, 0) if flag_start_capturing else (0, 200, 255)
         cv2.putText(img, status, (30, 450), cv2.FONT_HERSHEY_SIMPLEX, 0.8, status_color, 2)
 
-        cv2.imshow("Menangkap gestur", img)
+        cv2.imshow("Mengambil gestur", img)
         cv2.imshow("Mask", thresh)
         
         keypress = cv2.waitKey(1)

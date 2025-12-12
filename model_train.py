@@ -33,8 +33,7 @@ def cnn_model_improved():
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='same'))
     model.add(Dropout(0.3))
 
-    model.add(Conv2D(16, (3,3), activation='relu', 
-    kernel_regularizer=regularizers.l2(0.001)))
+    model.add(Conv2D(16, (3,3), activation='relu', kernel_regularizer=regularizers.l2(0.001)))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='same'))
     model.add(Dropout(0.3))
@@ -53,13 +52,10 @@ def cnn_model_improved():
     
     checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy', verbose=1, 
     save_best_only=True, mode='max')
-    
     early_stop = EarlyStopping(monitor='val_loss', patience=5, verbose=1, 
     restore_best_weights=True)
-    
     reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, 
     patience=3, min_lr=0.00001, verbose=1)
-    
     callbacks_list = [checkpoint, early_stop, reduce_lr]
     return model, callbacks_list
 
